@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linpiao.webblogapplication.mapper.BlogPostsMapper">
+
+    <insert id="createByPostIDLists" parameterType="java.util.Map">
+
+        INSERT INTO BlogPosts (Title, Picture, Content, Published, Created, UserName)
+        VALUES
+        <foreach collection="list1" item="title" index="index" separator=",">
+            <!-- Ensure that the index is within the bounds of other lists -->
+            <if test="index &lt; list2.size() and index &lt; list3.size() and index &lt; list4.size() and index &lt; list5.size() and index &lt; list6.size()">
+                 (#{title}, #{list2[${index}]}, #{list3[${index}]}, #{list4[${index}]}, #{list5[${index}]}, #{list6[${index}]})
+            </if>
+        </foreach>
+        ;
+    </insert>
+
+    <delete id="deleteByPostIDLists">
+        delete from BlogPosts where PostID in
+        <foreach collection="postIDList" item="postID" separator="," open="(" close=")">
+            #{postID}
+        </foreach>
+    </delete>
+
+    <select id="selectWithParams" resultType="com.linpiao.webblogapplication.pojo.BlogPosts">
+        select * from BlogPosts
+        <where>
+        <if test="name !=null and name !=''">
+            UserName like concat('%', #{name}, '%')
+        </if>
+        <if test="beginDate !=null and endDate !=null">
+            and Created between #{beginDate} and #{endDate}
+        </if>
+        </where>
+         order by PostID desc
+    </select>
+<!--    <select id="getBlogPostsByFirstName">-->
+<!--        select-->
+<!--        PostId, Title, Content, Published, Created, BlogPosts.UserName-->
+<!--        from BlogPosts, BlogUsers, Persons-->
+<!--        where BlogPosts.UserName =BlogUsers.UserName and BlogUsers.UserName=Persons.UserName-->
+<!--        and Persons.FirstName = #{firstName}-->
+<!--    </select>-->
+
+</mapper>

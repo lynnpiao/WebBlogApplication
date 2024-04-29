@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linpiao.webblogapplication.mapper.BlogCommentsMapper">
+
+    <insert id="createByCommentLists" parameterType="java.util.Map">
+
+        INSERT INTO BlogComments (Content, Created, UserName, PostId)
+        VALUES
+        <foreach collection="list1" item="content" index="index" separator=",">
+            <!-- Ensure that the index is within the bounds of other lists -->
+            <if test="index &lt; list2.size() and index &lt; list3.size() and index &lt; list4.size()">
+                 (#{content}, #{list2[${index}]}, #{list3[${index}]}, #{list4[${index}]})
+            </if>
+        </foreach>
+        ;
+    </insert>
+
+    <delete id="deleteByCommentLists">
+        delete from BlogComments where CommentId in
+        <foreach collection="commentIDList" item="commentID" separator="," open="(" close=")">
+            #{commentID}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linpiao.webblogapplication.mapper.ResharesMapper">
+
+    <insert id="createByReshareLists" parameterType="java.util.Map">
+
+        INSERT INTO Reshares (Created, UserName, PostId)
+        VALUES
+        <foreach collection="list1" item="created" index="index" separator=",">
+            <!-- Ensure that the index is within the bounds of other lists -->
+            <if test="index &lt; list2.size() and index &lt; list3.size() ">
+                 (#{created}, #{list2[${index}]}, #{list3[${index}]})
+            </if>
+        </foreach>
+        ;
+    </insert>
+
+    <delete id="deleteByReshareLists">
+        delete from Reshares where ReshareId in
+        <foreach collection="reshareIDList" item="reshareID" separator="," open="(" close=")">
+            #{reshareID}
+        </foreach>
+    </delete>
+
+</mapper>
