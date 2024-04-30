@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -30,16 +31,18 @@ public class BlogCommentsController {
     @GetMapping("/findBlogComments")
     public Result getBlogCommentsByBlogUserAndBlogPost(@RequestParam String userName, @RequestParam String postID){
         log.info("request BlogComments info");
+        List<BlogComments> blogComments = new ArrayList<BlogComments>();
         if(userName!=null && ! userName.trim().isEmpty() ){
             BlogUsers blogUser = blogUsersService.getBlogUser(userName);
-            List<BlogComments> blogComments= blogCommentsService.getBlogCommentsByBlogUser(blogUser);
-            return Result.success(blogComments);
+            blogComments= blogCommentsService.getBlogCommentsByBlogUser(blogUser);
+
         } else if (postID!= null && !postID.trim().isEmpty()) {
             Integer intPostID = Integer.parseInt(postID);
             BlogPosts blogPost = blogPostsService.getBlogPost(intPostID);
-            List<BlogComments> blogComments= blogCommentsService.getBlogCommentsByBlogPost(blogPost);
-            return Result.success(blogComments);
+            blogComments= blogCommentsService.getBlogCommentsByBlogPost(blogPost);
+
         }
+        return Result.success(blogComments);
     }
 
 
