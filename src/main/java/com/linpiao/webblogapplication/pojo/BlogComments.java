@@ -17,9 +17,8 @@ public class BlogComments {
     private BlogUsers blogUsers;
     private BlogPosts blogPosts;
 
-    public BlogComments(Integer commentID, String content) {
+    public BlogComments(Integer commentID) {
         this.commentID = commentID;
-        this.content = content;
     }
 
     public BlogComments(String content, Date created, BlogUsers blogUsers, BlogPosts blogPosts) {

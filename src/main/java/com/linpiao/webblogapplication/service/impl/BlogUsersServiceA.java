@@ -29,8 +29,8 @@ public class BlogUsersServiceA implements BlogUsersService {
     }
 
     @Override
-    public void  delete(String userName){
-        blogUsersMapper.delete(userName);
+    public void delete(BlogUsers blogUser){
+        blogUsersMapper.delete(blogUser);
     }
 
     @Override
@@ -40,8 +40,8 @@ public class BlogUsersServiceA implements BlogUsersService {
         blogUsersMapper.create(blogUser);
     }
 
-
-    public void updateLastName(BlogUsers blogUsers){
-        blogUsersMapper.updateLastName(blogUsers);
+    @Override
+    public void updateLastName(BlogUsers blogUsers, String newLastName){
+        blogUsersMapper.updateLastName(blogUsers, newLastName);
     }
 }

@@ -19,9 +19,8 @@ public class BlogPosts {
     private Date created;
     private BlogUsers blogUsers;
 
-    public BlogPosts(Integer postID, String title) {
+    public BlogPosts(Integer postID) {
         this.postID = postID;
-        this.title = title;
     }
 
     public BlogPosts(String title, String picture, String content, boolean published, Date created, BlogUsers blogUsers) {

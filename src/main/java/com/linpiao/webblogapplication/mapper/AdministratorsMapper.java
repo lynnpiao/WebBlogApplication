@@ -12,22 +12,24 @@ public interface AdministratorsMapper {
 
     @Insert("insert into Administrators(UserName, LastLogin)" +
              "values(#{userName}, #{lastLogin});")
-    public void create(Administrators administrators);
+    public void create(Administrators administrator);
 
     public void createByNameLists(Map<String, List<Object>> infoMap);
 
-    @Update("update Persons set LastName=#{lastName} where UserName=#{userName}")
-    public void updateLastName(Administrators administrators);
+    @Update("update Persons set LastName=#{newLastName} where UserName=#{userName}")
+    public void updateLastName(Administrators administrator, String newLastName);
 
     @Delete("delete from Administrators where UserName= #{userName}")
-    public void delete(String userName);
+    public void delete(Administrators administrator);
 
     public void deleteByUserNameLists(List<String> userNameList);
 
-    @Select("select * from Administrators where UserName= #{userName}")
+    @Select("select Administrators.UserName, FirstName, LastName, Administrators.LastLogin " +
+            "from Administrators inner join Persons on Administrators.UserName=Persons.UserName " +
+            "where Administrators.UserName= #{userName}")
     public Administrators getAdministratorByUserName(String userName);
 
-    @Select("select Administrators.UserName, Administrators.LastLogin from " +
+    @Select("select Administrators.UserName, FirstName, LastName, Administrators.LastLogin from " +
             "Administrators inner join Persons " +
             "on Administrators.UserName=Persons.UserName " +
             "where Persons.FirstName= #{firstName}")

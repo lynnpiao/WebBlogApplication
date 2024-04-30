@@ -16,11 +16,11 @@ public interface PersonsMapper {
 
     public void createByNameLists(Map<String, List<String>> nameMap);
 
-    @Update("update Persons set LastName=#{lastName} where UserName=#{userName}")
-    public void updateLastName(Persons person);
+    @Update("update Persons set LastName=#{newLastName} where UserName=#{userName}")
+    public void updateLastName(Persons person, String newLastName);
 
     @Delete("delete from Persons where UserName= #{userName}")
-    public void delete(String userName);
+    public void delete(Persons person);
 
     public void deleteByUserNameLists(List<String> userNameList);
 

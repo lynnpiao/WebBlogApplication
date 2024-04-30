@@ -21,6 +21,11 @@ public class Administrators extends Persons{
         super(userName);
     }
 
+    public Administrators(String userName, Date lastLogin) {
+        super(userName);
+        this.lastLogin = lastLogin;
+    }
+
     @Override
     public String toString() {
         return "Administrators{" + super.toString() +

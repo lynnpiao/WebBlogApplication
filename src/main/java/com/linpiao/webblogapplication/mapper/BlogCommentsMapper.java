@@ -18,11 +18,11 @@ public interface BlogCommentsMapper {
 
     public void createByCommentLists(Map<String, List<Object>> infoMap);
 
-    @Update("update BlogComments set Content=#{content} where CommentId=#{commentID}")
-    public void updateContent(BlogComments blogComment);
+    @Update("update BlogComments set Content=#{newContent} where CommentId=#{commentID}")
+    public void updateContent(BlogComments blogComment, String newContent);
 
     @Delete("delete from BlogComments where CommentId=#{commentID}")
-    public void delete(Integer commentID);
+    public void delete(BlogComments blogComment);
 
     public void deleteByCommentLists(List<Integer> commentIDList);
 

@@ -26,6 +26,7 @@ public class BlogUsers extends Persons{
     public BlogUsers(String userName) {
         super(userName);
     }
+
     public BlogUsers(String userName, Date dob, StatusLevel statusLevel) {
         super(userName);
         this.dob = dob;

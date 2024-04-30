@@ -15,20 +15,21 @@ public interface ResharesMapper {
 
     @Insert("insert into Reshares(Created, UserName, PostId)" +
              "values(#{created}, #{userName}, #{postID});")
-    public void create(Reshares reshares);
+    public void create(Reshares reshare);
 
     public void createByReshareLists(Map<String, List<Object>> infoMap);
 
 
     @Delete("delete from Reshares where ReshareId=#{reshareID}")
-    public void delete(Integer reshareID);
+    public void delete(Reshares reshare);
 
     public void deleteByReshareLists(List<Integer> reshareIDList);
 
-    @Select("select * from Reshares where ReshareId=#{reshareID}")
+    @Select("select ReshareId, Reshares.UserName, Reshares.PostId, Reshares.Created" +
+            " from Reshares where ReshareId=#{reshareID}")
     public Reshares getReshareByReshareID(Integer reshareID);
 
-    @Select("select  Reshares.UserName, Reshares.PostId, Reshares.Created from " +
+    @Select("select  ReshareId, Reshares.UserName, Reshares.PostId, Reshares.Created from " +
             "Reshares inner join BlogUsers " +
             "on Reshares.UserName=BlogUsers.UserName " +
             "where BlogUsers.UserName= #{userName}")

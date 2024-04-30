@@ -22,7 +22,7 @@ public interface BlogPostsMapper {
     public void updateContent(BlogPosts blogPost);
 
     @Delete("delete from BlogPosts where PostId=#{postID}")
-    public void delete(Integer postID);
+    public void delete(BlogPosts blogPost);
 
     public void deleteByPostIDLists(List<Integer> postIDList);
 

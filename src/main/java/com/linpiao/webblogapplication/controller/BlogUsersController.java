@@ -19,40 +19,33 @@ public class BlogUsersController {
     private BlogUsersService blogUsersService;
 
 
-    @GetMapping("/blogUsers/{userName}")
-    public Result getBlogUser(@PathVariable String userName){
-        log.info("request blogUser info");
-        BlogUsers blogUser= blogUsersService.getBlogUser(userName);
-        return Result.success(blogUser);
-    }
-
-    @GetMapping("/blogUsers/1/{firstName}")
-    public Result getBlogUserByFirstName(@PathVariable String firstName){
+    @GetMapping("/findBlogUsers")
+    public Result getBlogUserByFirstName(@RequestParam String firstName){
         log.info("request blogUser info");
         List<BlogUsers> blogUsers= blogUsersService.getBlogUserByFirstName(firstName);
         return Result.success(blogUsers);
     }
 
-    @DeleteMapping("/blogUsers/{userName}")
-    public Result delete(@PathVariable String userName){
-        log.info("delete the blogUser:{}", userName);
-        blogUsersService.delete(userName);
+    @DeleteMapping("/deleteBlogUser")
+    public Result delete(@RequestBody BlogUsers blogUser){
+        log.info("delete the blogUser:{}", blogUser);
+        blogUsersService.delete(blogUser);
         return Result.success();
 
     }
 
-    @PutMapping("/blogUsers/{id}")
-    public Result create(@PathVariable Long id, @RequestBody BlogUsers blogUser){
+    @PostMapping("/createBlogUser")
+    public Result create(@RequestBody BlogUsers blogUser){
         log.info("add new BlogUser:{}", blogUser);
         blogUsersService.create(blogUser);
         return Result.success();
     }
 
 
-    @PostMapping("/blogUsers")
-    public Result update(@RequestBody BlogUsers blogUser){
-        log.info("update lastName{} using userName{}", blogUser.getLastName(), blogUser.getUserName());
-        blogUsersService.updateLastName(blogUser);
+    @PutMapping("/updateLastName")
+    public Result update(@RequestBody BlogUsers blogUser, String newLastName){
+        log.info("update lastName{} using userName{}", newLastName, blogUser.getUserName());
+        blogUsersService.updateLastName(blogUser, newLastName);
         return Result.success();
     }
 

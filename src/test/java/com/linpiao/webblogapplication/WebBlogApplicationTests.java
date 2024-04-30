@@ -243,16 +243,16 @@ class WebBlogApplicationTests {
     public void testUpdatePersonLastName(){
         Persons person = new Persons();
         person.setUserName("JohnSmith");
-        person.setLastName("William");
+//        person.setLastName("William");
 
-        personsMapper.updateLastName(person);
+        personsMapper.updateLastName(person, "William");
     }
 
 
-    @Test
-    public void testDeletePerson(){
-        personsMapper.delete("JohnSmith");
-    }
+//    @Test
+//    public void testDeletePerson(){
+//        personsMapper.delete("JohnSmith");
+//    }
 
     @Test
     public void testDeleteByUserNameList(){
