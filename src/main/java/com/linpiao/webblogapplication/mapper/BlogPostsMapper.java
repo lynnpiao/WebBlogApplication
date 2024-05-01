@@ -27,21 +27,16 @@ public interface BlogPostsMapper {
     public void deleteByPostIDLists(List<Integer> postIDList);
 
 
-    public List<BlogPosts> selectWithParams(String name, Date beginDate, Date endDate);
+//    public List<BlogPosts> selectWithParams(String name, Date beginDate, Date endDate);
 
     @Select("select * from BlogPosts where PostId=#{postID}")
     public BlogPosts getBlogPostByPostID(Integer postID);
 
-    @Select("select PostId, Title, Content, Published, Created, BlogPosts.UserName from " +
-            "BlogPosts inner join BlogUsers on BlogPosts.UserName=BlogUsers.UserName " +
-            "where BlogUsers.UserName= #{userName}")
+//    @Select("select PostId, Title, BlogPosts.Picture, Content, Published, Created, BlogPosts.UserName from " +
+//            "BlogPosts inner join BlogUsers on BlogPosts.UserName=BlogUsers.UserName " +
+//            "where BlogUsers.UserName= #{userName}")
     public List<BlogPosts> getBlogPostsByBlogUser(BlogUsers blogUser);
 
 
-    @Select("select PostId, Title, Content, Published, Created, BlogPosts.UserName " +
-            "from BlogPosts, BlogUsers, Persons" +
-            " where BlogPosts.UserName =BlogUsers.UserName and BlogUsers.UserName=Persons.UserName " +
-            "and Persons.FirstName = #{firstName}")
-    public List<BlogPosts> getBlogPostsByFirstName(String firstName);
 
 }

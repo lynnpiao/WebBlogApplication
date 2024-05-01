@@ -26,19 +26,19 @@ public interface BlogCommentsMapper {
 
     public void deleteByCommentLists(List<Integer> commentIDList);
 
-    @Select("select * from BlogComments where CommentId=#{commentID}")
+//    @Select("select * from BlogComments where CommentId=#{commentID}")
     public BlogComments getBlogCommentByCommentID(Integer commentID);
 
-    @Select("select  CommentId, Content, Created, BlogComments.UserName, PostId from " +
-            "BlogComments inner join BlogUsers " +
-            "on BlogComments.UserName=BlogUsers.UserName " +
-            "where BlogUsers.UserName= #{userName}")
+//    @Select("select  CommentId, Content, Created, BlogComments.UserName,  BlogComments.PostId from " +
+//            "BlogComments inner join BlogUsers " +
+//            "on BlogComments.UserName=BlogUsers.UserName " +
+//            "where BlogUsers.UserName= #{userName}")
     public List<BlogComments> getBlogCommentsByBlogUser(BlogUsers blogUser);
 
-    @Select("select CommentId, BlogComments.Content, BlogComments.Created, BlogComments.UserName, BlogComments.PostId from " +
-            "BlogComments inner join BlogPosts " +
-            "on BlogPosts.PostId=BlogComments.PostId " +
-            "where BlogPosts.PostId= #{postID}")
+//    @Select("select CommentId, BlogComments.Content, BlogComments.Created, BlogComments.UserName, BlogComments.PostId from " +
+//            "BlogComments inner join BlogPosts " +
+//            "on BlogPosts.PostId=BlogComments.PostId " +
+//            "where BlogPosts.PostId= #{postID}")
     public List<BlogComments> getBlogCommentsByBlogPost(BlogPosts blogPost);
 
 

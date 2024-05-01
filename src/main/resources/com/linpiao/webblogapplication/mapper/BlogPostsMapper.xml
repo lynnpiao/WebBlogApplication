@@ -36,7 +36,36 @@
         </where>
          order by PostID desc
     </select>
-<!--    <select id="getBlogPostsByFirstName">-->
+
+    <resultMap id="blogPostsResultMap" type="com.linpiao.webblogapplication.pojo.BlogPosts">
+        <id property="postID" column="PostId"/>
+        <result property="title" column="Title"/>
+        <result property="picture" column="Picture"/>
+        <result property="content" column="Content"/>
+        <result property="published" column="Published"/>
+        <result property="created" column="Created"/>
+        <association property="blogUsers" javaType="com.linpiao.webblogapplication.pojo.BlogUsers">
+            <id property="userName" column="UserName"/>
+            <!-- Map other properties of BlogUsers if needed -->
+        </association>
+    </resultMap>
+
+    <!-- Define the select statement -->
+    <select id="getBlogPostsByBlogUser" resultMap="blogPostsResultMap">
+        select PostId, Title, Picture, Content, Published, Created, UserName
+        from BlogPosts
+        where BlogPosts.UserName = #{userName}
+    </select>
+
+    <select id="getBlogPostByPostID" resultMap="blogPostsResultMap">
+        select PostId, Title, Picture, Content, Published, Created, UserName
+        from BlogPosts
+        where PostId = #{postID}
+    </select>
+
+
+
+    <!--    <select id="getBlogPostsByFirstName">-->
 <!--        select-->
 <!--        PostId, Title, Content, Published, Created, BlogPosts.UserName-->
 <!--        from BlogPosts, BlogUsers, Persons-->

@@ -1,7 +1,9 @@
 package com.linpiao.webblogapplication.service.impl;
 
 import com.linpiao.webblogapplication.mapper.BlogUsersMapper;
+import com.linpiao.webblogapplication.mapper.PersonsMapper;
 import com.linpiao.webblogapplication.pojo.BlogUsers;
+import com.linpiao.webblogapplication.pojo.Persons;
 import com.linpiao.webblogapplication.service.BlogUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,9 @@ public class BlogUsersServiceA implements BlogUsersService {
 
     @Autowired
     private BlogUsersMapper blogUsersMapper;
+
+    @Autowired
+    private PersonsMapper personsMapper;
 
 
     @Override
@@ -35,9 +40,24 @@ public class BlogUsersServiceA implements BlogUsersService {
 
     @Override
     public void create(BlogUsers blogUser){
-        Date date = new Date();
-        blogUser.setDob(date);
+        Date inputdate = blogUser.getDob();
+
+        if (inputdate==null){
+            Date date = new Date();
+            blogUser.setDob(date);
+        }
+//        blogUser.getStatusLevel();
+        // also create related person
+        String userName = blogUser.getUserName();
+        String firstName = blogUser.getFirstName();
+        String lastName = blogUser.getLastName();
+
+        Persons person = new Persons(userName, firstName, lastName);
+        personsMapper.create(person);
         blogUsersMapper.create(blogUser);
+
+
+
     }
 
     @Override

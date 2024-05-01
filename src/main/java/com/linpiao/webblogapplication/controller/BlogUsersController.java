@@ -27,7 +27,8 @@ public class BlogUsersController {
     }
 
     @DeleteMapping("/deleteBlogUser")
-    public Result delete(@RequestBody BlogUsers blogUser){
+    public Result delete(@RequestParam String userName){
+        BlogUsers blogUser = blogUsersService.getBlogUser(userName);
         log.info("delete the blogUser:{}", blogUser);
         blogUsersService.delete(blogUser);
         return Result.success();
@@ -43,7 +44,8 @@ public class BlogUsersController {
 
 
     @PutMapping("/updateLastName")
-    public Result update(@RequestBody BlogUsers blogUser, String newLastName){
+    public Result update(@RequestParam String userName, @RequestParam String newLastName){
+        BlogUsers blogUser = blogUsersService.getBlogUser(userName);
         log.info("update lastName{} using userName{}", newLastName, blogUser.getUserName());
         blogUsersService.updateLastName(blogUser, newLastName);
         return Result.success();

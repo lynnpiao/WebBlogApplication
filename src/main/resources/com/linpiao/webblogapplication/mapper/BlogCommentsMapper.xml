@@ -24,4 +24,40 @@
         </foreach>
     </delete>
 
+
+    <resultMap id="blogCommentsResultMap" type="com.linpiao.webblogapplication.pojo.BlogComments">
+        <id property="commentID" column="CommentId"/>
+        <result property="content" column="Content"/>
+        <result property="created" column="Created"/>
+        <association property="blogUsers" javaType="com.linpiao.webblogapplication.pojo.BlogUsers">
+            <id property="userName" column="UserName"/>
+            <!-- Map other properties of BlogUsers if needed -->
+        </association>
+        <association property="blogPosts" javaType="com.linpiao.webblogapplication.pojo.BlogPosts">
+            <id property="postID" column="PostId"/>
+            <!-- Map other properties of BlogUsers if needed -->
+        </association>
+    </resultMap>
+
+    <select id="getBlogCommentByCommentID" resultMap="blogCommentsResultMap">
+        select  CommentId, Content, Created, UserName, PostId
+        from BlogComments
+        where CommentId= #{commentID}
+    </select>
+
+    <!-- Define the select statement -->
+    <select id="getBlogCommentsByBlogUser" resultMap="blogCommentsResultMap">
+        select  CommentId, Content, Created, UserName, PostId
+        from BlogComments
+        where UserName= #{userName}
+    </select>
+
+
+    <select id="getBlogCommentsByBlogPost" resultMap="blogCommentsResultMap">
+        select  CommentId, Content, Created, UserName, PostId
+        from BlogComments
+        where PostId= #{postID}
+    </select>
+
+
 </mapper>
