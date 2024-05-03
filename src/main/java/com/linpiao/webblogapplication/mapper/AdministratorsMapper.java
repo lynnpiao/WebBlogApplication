@@ -4,6 +4,7 @@ package com.linpiao.webblogapplication.mapper;
 import com.linpiao.webblogapplication.pojo.Administrators;
 import org.apache.ibatis.annotations.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,15 +13,15 @@ public interface AdministratorsMapper {
 
     @Insert("insert into Administrators(UserName, LastLogin)" +
              "values(#{userName}, #{lastLogin});")
-    public void create(Administrators administrator);
+    public void create(String userName, Date lastLogin);
 
     public void createByNameLists(Map<String, List<Object>> infoMap);
 
     @Update("update Persons set LastName=#{newLastName} where UserName=#{userName}")
-    public void updateLastName(Administrators administrator, String newLastName);
+    public void updateLastName(String userName, String newLastName);
 
     @Delete("delete from Administrators where UserName= #{userName}")
-    public void delete(Administrators administrator);
+    public void delete(String userName);
 
     public void deleteByUserNameLists(List<String> userNameList);
 

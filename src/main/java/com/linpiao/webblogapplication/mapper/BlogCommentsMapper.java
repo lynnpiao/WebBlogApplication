@@ -19,26 +19,17 @@ public interface BlogCommentsMapper {
     public void createByCommentLists(Map<String, List<Object>> infoMap);
 
     @Update("update BlogComments set Content=#{newContent} where CommentId=#{commentID}")
-    public void updateContent(BlogComments blogComment, String newContent);
+    public void updateContent(String newContent, Integer commentID);
 
     @Delete("delete from BlogComments where CommentId=#{commentID}")
-    public void delete(BlogComments blogComment);
+    public void delete(Integer commentID);
 
     public void deleteByCommentLists(List<Integer> commentIDList);
 
-//    @Select("select * from BlogComments where CommentId=#{commentID}")
     public BlogComments getBlogCommentByCommentID(Integer commentID);
 
-//    @Select("select  CommentId, Content, Created, BlogComments.UserName,  BlogComments.PostId from " +
-//            "BlogComments inner join BlogUsers " +
-//            "on BlogComments.UserName=BlogUsers.UserName " +
-//            "where BlogUsers.UserName= #{userName}")
     public List<BlogComments> getBlogCommentsByBlogUser(BlogUsers blogUser);
 
-//    @Select("select CommentId, BlogComments.Content, BlogComments.Created, BlogComments.UserName, BlogComments.PostId from " +
-//            "BlogComments inner join BlogPosts " +
-//            "on BlogPosts.PostId=BlogComments.PostId " +
-//            "where BlogPosts.PostId= #{postID}")
     public List<BlogComments> getBlogCommentsByBlogPost(BlogPosts blogPost);
 
 

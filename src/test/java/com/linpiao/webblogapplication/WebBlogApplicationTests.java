@@ -33,12 +33,7 @@ class WebBlogApplicationTests {
     // Persons related create DAO tests
     @Test
     public void testCreatePerson(){
-        Persons person = new Persons();
-        person.setUserName("JohnSmith");
-        person.setFirstName("John");
-        person.setLastName("Smith");
-
-        personsMapper.create(person);
+        personsMapper.create("JohnSmith", "John", "Smith");
 
     }
 
@@ -59,16 +54,8 @@ class WebBlogApplicationTests {
     // Administrators related create DAO tests
     @Test
     public void testCreateAdministrator() {
-        Administrators administrator = new Administrators();
         Date date = new Date();
-        Persons person = personsMapper.getPersonByUserName("WilliamSmith");
-//        String userName = person.getUserName();
-//        System.out.println(userName);
-        administrator.setUserName(person.getUserName());
-        administrator.setFirstName(person.getFirstName());
-        administrator.setLastName(person.getLastName());
-        administrator.setLastLogin(date);
-        administratorsMapper.create(administrator);
+        administratorsMapper.create("WilliamSmith", date);
 
     }
 
@@ -92,16 +79,11 @@ class WebBlogApplicationTests {
     @Test
     public void testCreateBlogUser(){
         Persons person = personsMapper.getPersonByUserName("JennyTaylor");
-        BlogUsers blogUser = new BlogUsers();
+        String userName = person.getUserName();
         Date date = new Date();
 //        String userName = person.getUserName();
-        blogUser.setUserName(person.getUserName());
-        blogUser.setFirstName(person.getFirstName());
-        blogUser.setLastName(person.getLastName());
-        blogUser.setDob(date);
-        blogUser.setStatusLevel(BlogUsers.StatusLevel.novice);
 
-        blogUsersMapper.create(blogUser);
+        blogUsersMapper.create(userName, date, BlogUsers.StatusLevel.novice);
 
     }
 
@@ -241,11 +223,8 @@ class WebBlogApplicationTests {
 
     @Test
     public void testUpdatePersonLastName(){
-        Persons person = new Persons();
-        person.setUserName("JohnSmith");
-//        person.setLastName("William");
 
-        personsMapper.updateLastName(person, "William");
+        personsMapper.updateLastName("JohnSmith", "William");
     }
 
 
@@ -322,12 +301,6 @@ class WebBlogApplicationTests {
 
     }
 
-    @Test
-    public void testGetBlogPostsByFirstName(){
-        String firstName="Peter";
-        List<BlogPosts>  blogPostsList = blogPostsMapper.getBlogPostsByFirstName(firstName);
-        blogPostsList.stream().forEach(blogPost -> {System.out.println(blogPost);});
-    }
 
 
     @Test

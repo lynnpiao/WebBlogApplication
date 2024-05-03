@@ -25,6 +25,7 @@ public class BlogUsersServiceA implements BlogUsersService {
 
     @Override
     public BlogUsers getBlogUser(String userName){
+        System.out.println(userName);
        return  blogUsersMapper.getBlogUserByUserName(userName);
     }
 
@@ -34,34 +35,23 @@ public class BlogUsersServiceA implements BlogUsersService {
     }
 
     @Override
-    public void delete(BlogUsers blogUser){
-        blogUsersMapper.delete(blogUser);
+    public void delete(BlogUsers blogUsers){
+        String userName = blogUsers.getUserName();
+        blogUsersMapper.delete(userName);
     }
 
     @Override
     public void create(BlogUsers blogUser){
-        Date inputdate = blogUser.getDob();
-
-        if (inputdate==null){
-            Date date = new Date();
-            blogUser.setDob(date);
-        }
-//        blogUser.getStatusLevel();
-        // also create related person
         String userName = blogUser.getUserName();
-        String firstName = blogUser.getFirstName();
-        String lastName = blogUser.getLastName();
-
-        Persons person = new Persons(userName, firstName, lastName);
-        personsMapper.create(person);
-        blogUsersMapper.create(blogUser);
-
-
+        Date dob = blogUser.getDob();
+        BlogUsers.StatusLevel statusLevel = blogUser.getStatusLevel();
+        blogUsersMapper.create(userName, dob, statusLevel);
 
     }
 
     @Override
     public void updateLastName(BlogUsers blogUsers, String newLastName){
-        blogUsersMapper.updateLastName(blogUsers, newLastName);
+        String userName = blogUsers.getUserName();
+        blogUsersMapper.updateLastName(newLastName, userName);
     }
 }

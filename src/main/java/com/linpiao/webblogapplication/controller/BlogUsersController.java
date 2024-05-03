@@ -3,6 +3,9 @@ package com.linpiao.webblogapplication.controller;
 
 import com.linpiao.webblogapplication.pojo.*;
 import com.linpiao.webblogapplication.service.BlogUsersService;
+import com.linpiao.webblogapplication.pojo.BlogUsers;
+import com.linpiao.webblogapplication.pojo.Result;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +32,7 @@ public class BlogUsersController {
     @DeleteMapping("/deleteBlogUser")
     public Result delete(@RequestParam String userName){
         BlogUsers blogUser = blogUsersService.getBlogUser(userName);
-        log.info("delete the blogUser:{}", blogUser);
+        log.info("delete the blogUser:{}", blogUser.getUserName());
         blogUsersService.delete(blogUser);
         return Result.success();
 

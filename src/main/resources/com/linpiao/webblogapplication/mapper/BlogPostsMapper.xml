@@ -24,18 +24,18 @@
         </foreach>
     </delete>
 
-    <select id="selectWithParams" resultType="com.linpiao.webblogapplication.pojo.BlogPosts">
-        select * from BlogPosts
-        <where>
-        <if test="name !=null and name !=''">
-            UserName like concat('%', #{name}, '%')
-        </if>
-        <if test="beginDate !=null and endDate !=null">
-            and Created between #{beginDate} and #{endDate}
-        </if>
-        </where>
-         order by PostID desc
-    </select>
+<!--    <select id="selectWithParams" resultType="com.linpiao.webblogapplication.pojo.BlogPosts">-->
+<!--        select * from BlogPosts-->
+<!--        <where>-->
+<!--        <if test="name !=null and name !=''">-->
+<!--            UserName like concat('%', #{name}, '%')-->
+<!--        </if>-->
+<!--        <if test="beginDate !=null and endDate !=null">-->
+<!--            and Created between #{beginDate} and #{endDate}-->
+<!--        </if>-->
+<!--        </where>-->
+<!--         order by PostID desc-->
+<!--    </select>-->
 
     <resultMap id="blogPostsResultMap" type="com.linpiao.webblogapplication.pojo.BlogPosts">
         <id property="postID" column="PostId"/>
@@ -46,7 +46,7 @@
         <result property="created" column="Created"/>
         <association property="blogUsers" javaType="com.linpiao.webblogapplication.pojo.BlogUsers">
             <id property="userName" column="UserName"/>
-            <!-- Map other properties of BlogUsers if needed -->
+
         </association>
     </resultMap>
 
@@ -57,20 +57,13 @@
         where BlogPosts.UserName = #{userName}
     </select>
 
+
     <select id="getBlogPostByPostID" resultMap="blogPostsResultMap">
         select PostId, Title, Picture, Content, Published, Created, UserName
         from BlogPosts
-        where PostId = #{postID}
+        where BlogPosts.PostId = #{postID}
     </select>
 
 
-
-    <!--    <select id="getBlogPostsByFirstName">-->
-<!--        select-->
-<!--        PostId, Title, Content, Published, Created, BlogPosts.UserName-->
-<!--        from BlogPosts, BlogUsers, Persons-->
-<!--        where BlogPosts.UserName =BlogUsers.UserName and BlogUsers.UserName=Persons.UserName-->
-<!--        and Persons.FirstName = #{firstName}-->
-<!--    </select>-->
 
 </mapper>

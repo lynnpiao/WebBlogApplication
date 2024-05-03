@@ -12,20 +12,17 @@ public interface PersonsMapper {
 
     @Insert("insert into Persons(UserName, FirstName, LastName)" +
             " values (#{userName}, #{firstName}, #{lastName})" )
-    public void create(Persons person);
+    public void create(String userName, String firstName, String lastName);
 
     public void createByNameLists(Map<String, List<String>> nameMap);
 
     @Update("update Persons set LastName=#{newLastName} where UserName=#{userName}")
-    public void updateLastName(Persons person, String newLastName);
+    public void updateLastName(String userName, String newLastName);
 
     @Delete("delete from Persons where UserName= #{userName}")
-    public void delete(Persons person);
+    public void delete(String userName);
 
     public void deleteByUserNameLists(List<String> userNameList);
-
-    @Select("select * from Persons")
-    public List<Persons> list();
 
     @Select("select * from Persons where UserName= #{userName}")
     public Persons getPersonByUserName(String userName);

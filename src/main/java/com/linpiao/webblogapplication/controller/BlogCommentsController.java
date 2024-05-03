@@ -31,16 +31,15 @@ public class BlogCommentsController {
     @GetMapping("/findBlogComments")
     public Result getBlogCommentsByBlogUserAndBlogPost(@RequestParam String userName, @RequestParam String postID){
         log.info("request BlogComments info");
-        List<BlogComments> blogComments = new ArrayList<BlogComments>();
+        List<BlogComments> blogComments = new ArrayList<>();
+
         if(userName!=null && ! userName.trim().isEmpty() ){
             BlogUsers blogUser = blogUsersService.getBlogUser(userName);
             blogComments= blogCommentsService.getBlogCommentsByBlogUser(blogUser);
-
         } else if (postID!= null && !postID.trim().isEmpty()) {
             Integer intPostID = Integer.parseInt(postID);
             BlogPosts blogPost = blogPostsService.getBlogPost(intPostID);
             blogComments= blogCommentsService.getBlogCommentsByBlogPost(blogPost);
-
         }
         return Result.success(blogComments);
     }

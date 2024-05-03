@@ -21,18 +21,13 @@ public interface ResharesMapper {
 
 
     @Delete("delete from Reshares where ReshareId=#{reshareID}")
-    public void delete(Reshares reshare);
+    public void delete(Integer reshareID);
 
     public void deleteByReshareLists(List<Integer> reshareIDList);
 
-//    @Select("select ReshareId, Reshares.UserName, Reshares.PostId, Reshares.Created" +
-//            " from Reshares where ReshareId=#{reshareID}")
+
     public Reshares getReshareByReshareID(Integer reshareID);
 
-//    @Select("select  ReshareId, Reshares.UserName, Reshares.PostId, Reshares.Created from " +
-//            "Reshares inner join BlogUsers " +
-//            "on Reshares.UserName=BlogUsers.UserName " +
-//            "where BlogUsers.UserName= #{userName}")
     public List<Reshares> getBlogResharesByBlogUser(BlogUsers blogUser);
 
 

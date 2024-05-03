@@ -22,25 +22,6 @@ public class BlogPostsServiceA implements BlogPostsService {
     private BlogPostsMapper blogPostsMapper;
 
 
-//    @Override
-//    public void create(BlogPosts blogPost){
-//        Date date = new Date();
-////        BlogUsers blogUser = new BlogUsers(blogPost.getUserName());
-//        blogPost.setCreated(date);
-////        blogPost.setBlogUsers(blogUser);
-//        blogPostsMapper.create(blogPost);
-//    }
-//
-//    @Override
-//    public void delete(Integer postID){
-//        blogPostsMapper.delete(postID);
-//    }
-//
-//    @Override
-//    public void deleteByList(List<Integer> postIDs){
-//        blogPostsMapper.deleteByPostIDLists(postIDs);
-//    }
-
     @Override
     public BlogPosts getBlogPost(Integer postID){
         return  blogPostsMapper.getBlogPostByPostID(postID);
@@ -52,14 +33,5 @@ public class BlogPostsServiceA implements BlogPostsService {
     }
 
 
-//    @Override
-//    public PageBean pageSelectWithParams(Integer page, Integer pageSize, String name, Date beginDate, Date endDate){
-//        PageHelper.startPage(page, pageSize);
-//        List<BlogPosts> bpList = blogPostsMapper.selectWithParams(name, beginDate, endDate);
-//        Page<BlogPosts> ps = (Page<BlogPosts>) bpList;
-//
-//        PageBean pageBean = new PageBean(ps.getTotal(), ps.getResult());
-//        return pageBean;
-//    }
 
 }
