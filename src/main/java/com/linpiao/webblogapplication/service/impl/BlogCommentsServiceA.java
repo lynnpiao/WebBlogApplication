@@ -18,12 +18,22 @@ public class BlogCommentsServiceA implements BlogCommentsService {
     private BlogCommentsMapper blogCommentsMapper;
 
     @Override
+    public BlogComments getBlogCommentsByCommentID(Integer commentID){
+//        System.out.println("start to retrieve blog comments by ID");
+        return blogCommentsMapper.getBlogCommentByCommentID(commentID);
+    }
+
+    @Override
     public List<BlogComments> getBlogCommentsByBlogUser(BlogUsers blogUser){
+//        System.out.println("start to retrieve blog comments by bloguser");
+//        System.out.println(blogUser);
         return blogCommentsMapper.getBlogCommentsByBlogUser(blogUser);
     }
 
     @Override
     public List<BlogComments> getBlogCommentsByBlogPost(BlogPosts blogPost){
+//        System.out.println("start to retrieve blog comments by blogPost");
+//        System.out.println(blogPost);
         return blogCommentsMapper.getBlogCommentsByBlogPost(blogPost);
     }
 

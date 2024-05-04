@@ -45,4 +45,14 @@ public class BlogCommentsController {
     }
 
 
+//    @GetMapping("/findBlogComments")
+//    public Result getBlogCommentsByCommentID(@RequestParam String commentID){
+//        log.info("request BlogComments info");
+//        Integer intCommentID = Integer.parseInt(commentID);
+//        BlogComments blogComment= blogCommentsService.getBlogCommentsByCommentID(intCommentID);
+//
+//        return Result.success(blogComment);
+//    }
+
+
 }

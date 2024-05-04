@@ -29,11 +29,12 @@
         <id property="commentID" column="CommentId"/>
         <result property="content" column="Content"/>
         <result property="created" column="Created"/>
+<!--        <result property="userName" column="UserName"/>-->
         <association property="blogUsers" javaType="com.linpiao.webblogapplication.pojo.BlogUsers">
             <id property="userName" column="UserName"/>
             <!-- Map other properties of BlogUsers if needed -->
-            <!--            <result property="userName" column="UserName"/>-->
         </association>
+
         <association property="blogPosts" javaType="com.linpiao.webblogapplication.pojo.BlogPosts">
             <id property="postID" column="PostId"/>
             <!-- Map other properties of BlogUsers if needed -->
@@ -49,7 +50,7 @@
 
     <!-- Define the select statement -->
     <select id="getBlogCommentsByBlogUser" resultMap="blogCommentsResultMap">
-        select CommentId, Content, Created, UserName, PostId
+        select CommentId, Content, Created, UserName,  PostId
         from BlogComments
         where BlogComments.UserName = #{userName}
     </select>
