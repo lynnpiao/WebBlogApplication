@@ -32,34 +32,92 @@
 <!--        <result property="userName" column="UserName"/>-->
         <association property="blogUsers" javaType="com.linpiao.webblogapplication.pojo.BlogUsers">
             <id property="userName" column="UserName"/>
-            <!-- Map other properties of BlogUsers if needed -->
+            <result property="firstName" column="FirstName"/>
+            <result property="lastName" column="LastName"/>
+            <result property="dob" column="DoB"/>
+            <result property="statusLevel" column="StatusLevel"/>
         </association>
 
-        <association property="blogPosts" javaType="com.linpiao.webblogapplication.pojo.BlogPosts">
+        <collection property="blogPosts" ofType="com.linpiao.webblogapplication.pojo.BlogPosts">
             <id property="postID" column="PostId"/>
+            <result property="title" column="Title"/>
+            <result property="picture" column="Picture"/>
+            <result property="content" column="Content"/>
+            <result property="published" column="Published"/>
+            <result property="created" column="Created"/>
+            <association property="blogUsers" javaType="com.linpiao.webblogapplication.pojo.BlogUsers">
+                <id property="userName" column="UserName"/>
+                <result property="firstName" column="FirstName"/>
+                <result property="lastName" column="LastName"/>
+                <result property="dob" column="DoB"/>
+                <result property="statusLevel" column="StatusLevel"/>
+
+            </association>
             <!-- Map other properties of BlogUsers if needed -->
             <!--            <result property="userName" column="UserName"/>-->
-        </association>
+        </collection>
     </resultMap>
 
+
+
+
     <select id="getBlogCommentByCommentID" resultMap="blogCommentsResultMap">
-        select  CommentId, Content, Created, UserName, PostId
+        select
+        a.CommentId,  a.Content,  a.Created, b.UserName, b.FirstName, b.LastName, b.DoB, b.StatusLevel, c.PostId, c.Title
+        from
+        (select CommentId, Content, Created, UserName, PostId
         from BlogComments
-        where BlogComments.CommentId= #{commentID}
+        where CommentId= #{commentID}
+        )a
+        left join
+        (select
+        BlogUsers.UserName, Persons.FirstName, Persons.LastName, BlogUsers.DoB, BlogUsers.StatusLevel
+        from BlogUsers inner join Persons
+        on BlogUsers.UserName=Persons.UserName)b on a.UserName=b.UserName
+        LEFT JOIN
+        (select
+        PostId, Title
+        from BlogPosts)c on a.PostId=c.PostId;
     </select>
 
     <!-- Define the select statement -->
     <select id="getBlogCommentsByBlogUser" resultMap="blogCommentsResultMap">
-        select CommentId, Content, Created, UserName,  PostId
+        select
+        a.CommentId,  a.Content,  a.Created, b.UserName, b.FirstName, b.LastName, b.DoB, b.StatusLevel, c.PostId, c.Title
+        from
+        (select CommentId, Content, Created, UserName, PostId
         from BlogComments
-        where BlogComments.UserName = #{userName}
+        where UserName= #{userName}
+        )a
+        left join
+        (select
+        BlogUsers.UserName, Persons.FirstName, Persons.LastName, BlogUsers.DoB, BlogUsers.StatusLevel
+        from BlogUsers inner join Persons
+        on BlogUsers.UserName=Persons.UserName)b on a.UserName=b.UserName
+        LEFT JOIN
+        (select
+        PostId, Title
+        from BlogPosts)c on a.PostId=c.PostId;
     </select>
 
 
     <select id="getBlogCommentsByBlogPost" resultMap="blogCommentsResultMap">
-        select  CommentId, Content, Created, UserName, PostId
+        select
+        a.CommentId,  a.Content,  a.Created, b.UserName, b.FirstName, b.LastName, b.DoB, b.StatusLevel, c.PostId, c.Title
+        from
+        (select CommentId, Content, Created, UserName, PostId
         from BlogComments
-        where BlogComments.PostId= #{postID}
+        where PostId= #{postID}
+        )a
+        left join
+        (select
+        BlogUsers.UserName, Persons.FirstName, Persons.LastName, BlogUsers.DoB, BlogUsers.StatusLevel
+        from BlogUsers inner join Persons
+        on BlogUsers.UserName=Persons.UserName)b on a.UserName=b.UserName
+        LEFT JOIN
+        (select
+        PostId, Title
+        from BlogPosts)c on a.PostId=c.PostId;
     </select>
 
 

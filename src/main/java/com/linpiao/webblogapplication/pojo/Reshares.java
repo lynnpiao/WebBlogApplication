@@ -32,9 +32,9 @@ public class Reshares {
     }
 
     public void setUserName(String userName) {
-        BlogUsers blogUsers = new BlogUsers();
-        blogUsers.setUserName(userName);
-        this.blogUsers = blogUsers;
+        BlogUsers blogUser = new BlogUsers(userName);
+//        this.setBlogUsers(blogUsers);
+        this.blogUsers = blogUser;
     }
 
     public Integer getPostID() {

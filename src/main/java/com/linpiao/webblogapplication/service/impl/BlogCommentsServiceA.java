@@ -9,6 +9,7 @@ import com.linpiao.webblogapplication.service.BlogCommentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -16,6 +17,17 @@ public class BlogCommentsServiceA implements BlogCommentsService {
 
     @Autowired
     private BlogCommentsMapper blogCommentsMapper;
+
+
+    @Override
+   public void createBlogComment(String content, Date created, String userName, Integer postID){
+        BlogComments blogComments = new BlogComments();
+        blogComments.setContent(content);
+        blogComments.setCreated(created);
+        blogComments.setUserName(userName);
+        blogComments.setPostID(postID);
+        blogCommentsMapper.create(blogComments);
+   }
 
     @Override
     public BlogComments getBlogCommentsByCommentID(Integer commentID){

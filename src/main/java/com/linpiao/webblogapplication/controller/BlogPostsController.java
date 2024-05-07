@@ -29,6 +29,8 @@ public class BlogPostsController {
         log.info("request BlogPosts info");
         BlogUsers blogUser = blogUsersService.getBlogUser(userName);
         List<BlogPosts> blogPosts= blogPostsService.getBlogPostsByBlogUser(blogUser);
+        log.info(blogUser.toString());
+        log.info(blogPosts.toString());
         return Result.success(blogPosts);
     }
 

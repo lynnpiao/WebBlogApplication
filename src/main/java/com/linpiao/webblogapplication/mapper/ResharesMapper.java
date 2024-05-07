@@ -1,8 +1,6 @@
 package com.linpiao.webblogapplication.mapper;
 
 
-import com.linpiao.webblogapplication.pojo.BlogComments;
-import com.linpiao.webblogapplication.pojo.BlogPosts;
 import com.linpiao.webblogapplication.pojo.BlogUsers;
 import com.linpiao.webblogapplication.pojo.Reshares;
 import org.apache.ibatis.annotations.*;

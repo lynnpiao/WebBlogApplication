@@ -16,6 +16,7 @@ public interface BlogCommentsMapper {
              "values(#{content}, #{created}, #{userName}, #{postID});")
     public void create(BlogComments blogComment);
 
+
     public void createByCommentLists(Map<String, List<Object>> infoMap);
 
     @Update("update BlogComments set Content=#{newContent} where CommentId=#{commentID}")

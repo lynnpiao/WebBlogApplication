@@ -11,6 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BlogPosts {
+
     private Integer postID;
     private String title;
     private String picture;
@@ -34,11 +35,12 @@ public class BlogPosts {
 
     public String getUserName() {
         return this.blogUsers.getUserName();
+
     }
 
     public void setUserName(String userName) {
-        BlogUsers blogUsers = new BlogUsers();
-        blogUsers.setUserName(userName);
-        this.blogUsers = blogUsers;
+        BlogUsers blogUser = new BlogUsers(userName);
+        this.blogUsers = blogUser;
+
     }
 }

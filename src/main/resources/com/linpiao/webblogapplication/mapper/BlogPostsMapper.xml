@@ -46,22 +46,34 @@
         <result property="created" column="Created"/>
         <association property="blogUsers" javaType="com.linpiao.webblogapplication.pojo.BlogUsers">
             <id property="userName" column="UserName"/>
+            <result property="firstName" column="FirstName"/>
+            <result property="lastName" column="LastName"/>
+            <result property="dob" column="DoB"/>
+            <result property="statusLevel" column="StatusLevel"/>
 
         </association>
     </resultMap>
 
     <!-- Define the select statement -->
     <select id="getBlogPostsByBlogUser" resultMap="blogPostsResultMap">
-        select PostId, Title, Picture, Content, Published, Created, UserName
-        from BlogPosts
-        where BlogPosts.UserName = #{userName}
+        select PostId, Title, Picture, Content, Published, Created,  BlogUsers.UserName, Persons.FirstName, Persons.LastName, BlogUsers.DoB, BlogUsers.StatusLevel
+        from BlogPosts Inner Join BlogUsers, Persons
+        where BlogPosts.UserName = BlogUsers.UserName and BlogUsers.UserName = Persons.UserName and BlogPosts.UserName = #{userName};
     </select>
 
 
     <select id="getBlogPostByPostID" resultMap="blogPostsResultMap">
-        select PostId, Title, Picture, Content, Published, Created, UserName
+        select
+        a.PostId, a.Title, a.Picture, a.Content, a.Published, a.Created, b.UserName, b.FirstName, b.LastName, b.DoB, b.StatusLevel
+        from
+        (select PostId, Title, Picture, Content, Published, Created,  UserName
         from BlogPosts
-        where BlogPosts.PostId = #{postID}
+        where PostId= #{postID}
+        )a
+        left join
+        (select
+        BlogUsers.UserName, Persons.FirstName, Persons.LastName, BlogUsers.DoB, BlogUsers.StatusLevel
+        from BlogUsers inner join Persons on BlogUsers.UserName = Persons.UserName)b on a.UserName=b.UserName;
     </select>
 
 
